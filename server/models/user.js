@@ -9,4 +9,4 @@ const User = bookshelf.Model.extend({
   }
 })
 
-module.exports = Bookshelf.model('User', User)
+module.exports = bookshelf.model('User', User)

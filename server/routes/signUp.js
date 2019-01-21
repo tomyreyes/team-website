@@ -1,19 +1,32 @@
 const express = require('express')
 const signUp = express.Router()
-const axios = require('axios')
+const bcrypt = require('bcrypt')
+const UsersController = require('../controllers/usersController')
 
 signUp.post('/sign-up', (req, res, next) => {
-  if (!req.body) {
-    res.status(404).send({
-      error: {
-        message: 'No information provided',
-        status: 404
+  UsersController.findEmail(req.body.email).then(user => {
+    if (user) {
+      return res.json({ message: 'A User with this email already exists.' })
+    }
+    bcrypt.hash(req.body.password, 10, (err, hash) => {
+      if (err) {
+        return res.status(500).json({
+          error: err
+        })
       }
+      UsersController.createUser(req.body.email, hash).then(user => {
+        if (!user) {
+          return res.status(500).json({
+            message:
+              'An error occurred in making your account. Please Try again.'
+          })
+        }
+        return res.status(200).json({
+          message: 'Success, your account has been created!'
+        })
+      })
     })
-  }
-  //Expect to receive email and password from the client
-  //I first need to check the db if the email already exists.
-  //I will then bcrypt password and store to database
+  })
 })
 
 module.exports = signUp
