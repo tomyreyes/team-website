@@ -15,15 +15,17 @@ signUp.post('/sign-up', (req, res, next) => {
         })
       }
       UsersController.createUser(req.body.email, hash).then(user => {
-        if (!user) {
-          return res.status(500).json({
-            message:
-              'An error occurred in making your account. Please Try again.'
+        return res
+          .status(201)
+          .json({
+            message: 'Success, your account has been created!'
           })
-        }
-        return res.status(200).json({
-          message: 'Success, your account has been created!'
-        })
+          .catch(err => {
+            return res.status(500).json({
+              message:
+                'An error occurred in making your account. Please Try again.'
+            })
+          })
       })
     })
   })
