@@ -6,7 +6,9 @@ const UsersController = require('../controllers/usersController')
 signUp.post('/sign-up', (req, res, next) => {
   UsersController.findEmail(req.body.email).then(user => {
     if (user) {
-      return res.json({ message: 'A User with this email already exists.' })
+      return res
+        .status(422)
+        .json({ message: 'A User with this email already exists.' })
     }
     bcrypt.hash(req.body.password, 10, (err, hash) => {
       if (err) {
