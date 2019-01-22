@@ -1,11 +1,44 @@
-const express = require('express')
-const login = express.Router()
-const UsersController = require('../controllers/usersController')
+const User = require('../models/user')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+const UserHelper = require('../utils/user')
 
-login.post('/login', (req, res, next) => {
-  UsersController.findEmail(req.body.email)
+exports.signUp = (req, res, next) => {
+  UserHelper.findEmail(req.body.email).then(user => {
+    if (user) {
+      return res
+        .status(422)
+        .json({ message: 'A User with this email already exists.' })
+    }
+    bcrypt.hash(req.body.password, 10, (err, hash) => {
+      if (err) {
+        return res.status(500).json({
+          error: err
+        })
+      }
+      const newUser = new User({
+        email: req.body.email,
+        password: hash
+      })
+      newUser
+        .save()
+        .then(user => {
+          return res
+            .status(201)
+            .json({ message: 'Success, your account has been created!' })
+        })
+        .catch(err => {
+          return res.status(500).json({
+            message:
+              'An error occurred in making your account. Please Try again.'
+          })
+        })
+    })
+  })
+}
+
+exports.login = (req, res, next) => {
+  UserHelper.findEmail(req.body.email)
     .then(user => {
       if (!user) {
         return res.status(401).json({
@@ -46,6 +79,4 @@ login.post('/login', (req, res, next) => {
         message: err
       })
     })
-})
-
-module.exports = login
+}
