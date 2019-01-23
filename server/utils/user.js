@@ -1,4 +1,4 @@
-const User = require('../models/user')
+const User = require('../db/models/user')
 
 exports.findEmail = email => {
   return new Promise((resolve, reject) => {
