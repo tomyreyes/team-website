@@ -1,4 +1,5 @@
 const User = require('../db/models/user')
+const Profile = require('../db/models/profile')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const UserHelper = require('../utils/user')

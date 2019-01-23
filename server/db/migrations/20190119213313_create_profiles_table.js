@@ -7,6 +7,10 @@ exports.up = function(knex, Promise) {
     table.string('name').nullable()
     table.string('email').nullable()
     table.string('bio').nullable()
+    table
+      .integer('user_id')
+      .unique()
+      .references('users.id')
     table.dateTime('created_at', 6).defaultTo(knex.fn.now(6))
     table.dateTime('updated_at', 6).nullable()
   })

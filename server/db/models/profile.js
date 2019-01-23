@@ -4,7 +4,7 @@ require('./user')
 const Profile = bookshelf.Model.extend({
   tableName: 'profiles',
   hasTimestamps: true,
-  profile: function() {
+  user: function() {
     return this.belongsTo('User')
   }
 })
