@@ -1,6 +1,4 @@
-process.env.NODE_ENV = 'test'
 const knex = require('../db/config')
-const User = require('../db/models/user')
 const UserHelper = require('../utils/user')
 
 beforeEach(() => {
@@ -14,8 +12,14 @@ afterEach(() => {
   return knex.migrate.rollback()
 })
 
-it('works with promises', () => {
+it('User should be found.', () => {
   const email = 'clarkkent@gmail.com'
   expect.assertions(1)
   return UserHelper.findEmail(email).then(data => expect(data).toBeTruthy())
+})
+
+it('User should not be found.', () => {
+  const email = 'peterparkergmail.com'
+  expect.assertions(1)
+  return UserHelper.findEmail(email).then(data => expect(data).toBeFalsy())
 })
