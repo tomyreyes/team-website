@@ -1,14 +1,14 @@
-const knex = require('../db/config')
-const UserHelper = require('../utils/user')
+const knex = require('../../db/config')
+const UserHelper = require('../../utils/user')
 
-beforeEach(() => {
+beforeAll(() => {
   return knex.migrate
     .rollback()
     .then(() => knex.migrate.latest())
     .then(() => knex.seed.run())
 })
 
-afterEach(() => {
+afterAll(() => {
   return knex.migrate.rollback()
 })
 
