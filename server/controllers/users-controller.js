@@ -1,5 +1,3 @@
-const User = require('../db/models/user')
-const Profile = require('../db/models/profile')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const UserHelper = require('../utils/user')
@@ -17,13 +15,8 @@ exports.signUp = (req, res, next) => {
           error: err
         })
       }
-      const newUser = new User({
-        email: req.body.email,
-        password: hash
-      })
-      newUser
-        .save()
-        .then(user => {
+      UserHelper.createUserAndProfile(req.body.email, hash)
+        .then(() => {
           return res
             .status(201)
             .json({ message: 'Success, your account has been created!' })

@@ -1,7 +1,6 @@
 const knex = require('../../db/config')
 const UserHelper = require('../../utils/user')
 const User = require('../../db/models/user')
-const Profile = require('../../db/models/profile')
 
 beforeAll(() => {
   return knex.migrate
@@ -30,5 +29,14 @@ it('Relationship between User and Profile exists.', () => {
   expect.assertions(1)
   return new User({ id: 1 }).fetch({ withRelated: 'profile' }).then(user => {
     expect(user.related('profile').get('user_id')).toBe(1)
+  })
+})
+
+it('A profile is created upon user creation.', () => {
+  return UserHelper.createUserAndProfile(
+    'wonderwoman@justleague.com',
+    'secret'
+  ).then(profile => {
+    expect(profile.get('user_id')).toBe(3)
   })
 })
