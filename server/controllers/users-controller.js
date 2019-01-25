@@ -34,6 +34,7 @@ exports.signUp = (req, res, next) => {
 exports.login = (req, res, next) => {
   UserHelper.findEmail(req.body.email)
     .then(user => {
+      console.log(user)
       if (!user) {
         return res.status(401).json({
           message: 'Authentication failed.'

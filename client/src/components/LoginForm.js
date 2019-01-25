@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import FormValidation from '../utils/FormValidation'
+import axios from 'axios'
 
 export default class LoginForm extends Component {
   constructor() {
@@ -24,7 +25,7 @@ export default class LoginForm extends Component {
       password: '',
       validation: this.validator.valid(),
       errorMessage: null,
-      messageSuccess: false
+      serverResponse: null
     }
 
     this.submitted = false
@@ -39,12 +40,22 @@ export default class LoginForm extends Component {
 
   handleFormSubmit = event => {
     event.preventDefault()
-    const { email, password, messageSuccess } = this.state
+    const { email, password } = this.state
     const validation = this.validator.validate(this.state)
     this.setState({ validation })
     this.submitted = true
     if (validation.isValid) {
-      console.log('working')
+      axios
+        .post('http://localhost:5000/user/login', {
+          email,
+          password
+        })
+        .then(res => {
+          this.setState({ serverResponse: res.data.message })
+        })
+        .catch(err => {
+          this.setState({ serverResponse: err.message })
+        })
     }
   }
 
@@ -53,7 +64,7 @@ export default class LoginForm extends Component {
       ? this.validator.validate(this.state)
       : this.state.validation
 
-    const { messageSuccess } = this.state
+    const { serverResponse } = this.state
     return (
       <form name="login" onSubmit={this.handleFormSubmit}>
         <div>
@@ -83,6 +94,7 @@ export default class LoginForm extends Component {
         <button type="submit" className="special">
           LoginForm
         </button>
+        <span>{serverResponse}</span>
       </form>
     )
   }
