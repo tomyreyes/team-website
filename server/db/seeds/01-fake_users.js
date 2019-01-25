@@ -1,3 +1,5 @@
+const bcrypt = require('bcrypt')
+
 exports.seed = function(knex, Promise) {
   return knex('users')
     .del()
@@ -5,11 +7,11 @@ exports.seed = function(knex, Promise) {
       return Promise.all([
         knex('users').insert({
           email: 'batman@gmail.com',
-          password: 'secret'
+          password: bcrypt.hashSync(process.env.USER_SEED_PASSWORD, 10)
         }),
         knex('users').insert({
           email: 'superman@justiceleague.com',
-          password: 'secret'
+          password: bcrypt.hashSync(process.env.USER_SEED_PASSWORD, 10)
         })
       ])
     })
