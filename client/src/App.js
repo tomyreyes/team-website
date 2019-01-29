@@ -9,9 +9,9 @@ class App extends Component {
       <BrowserRouter>
         <div>
           <Switch>
-            <Route exact path="/" render={props => <Home />} />
-            <Route path="/login" render={props => <Login />} />
-            <Route path="/sign-up" render={props => <SignUp />} />
+            <Route exact path="/" render={props => <Home {...props} />} />
+            <Route path="/login" render={props => <Login {...props} />} />
+            <Route path="/sign-up" render={props => <SignUp {...props} />} />
           </Switch>
         </div>
       </BrowserRouter>

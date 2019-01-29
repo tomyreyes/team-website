@@ -1,7 +1,13 @@
 import React, { Component } from 'react'
 import FormValidation from '../utils/FormValidation'
 import axios from 'axios'
-import { FormContainer, FormButton, FormLabel, FormTitle } from './styled/Form'
+import {
+  FormContainer,
+  FormButton,
+  FormLabel,
+  FormTitle,
+  ErrorLabel
+} from './styled/Form'
 export default class LoginForm extends Component {
   constructor() {
     super()
@@ -67,34 +73,34 @@ export default class LoginForm extends Component {
     const { serverResponse } = this.state
     return (
       <FormContainer>
-        <FormTitle>Login</FormTitle>
+        <FormTitle>AUTHENTICATION REQUIRED</FormTitle>
         <form name="login" onSubmit={this.handleFormSubmit}>
           <div>
-            <FormLabel htmlFor="email">
-              Email <span className="required-field">*</span>
-            </FormLabel>
+            <FormLabel htmlFor="email">EMAIL</FormLabel>
             <input
               type="text"
               name="email"
               id="email"
               onChange={this.handleInputChange}
             />
-            <span className="error">{validation.email.message}</span>
+            <ErrorLabel className="error">
+              {validation.email.message}
+            </ErrorLabel>
           </div>
           <div className="field">
-            <FormLabel htmlFor="password">
-              password <span className="required-field">*</span>
-            </FormLabel>
+            <FormLabel htmlFor="password">PASSCODE</FormLabel>
             <input
               type="password"
               name="password"
               id="password"
               onChange={this.handleInputChange}
             />
-            <span className="error">{validation.password.message}</span>
+            <ErrorLabel className="error">
+              {validation.password.message}
+            </ErrorLabel>
           </div>
-          <FormButton type="submit" className="special">
-            <FormLabel>Submit</FormLabel>
+          <FormButton type="submit" onClick={this.handleFormSubmit}>
+            <FormLabel>SUBMIT</FormLabel>
           </FormButton>
           <span>{serverResponse}</span>
         </form>
