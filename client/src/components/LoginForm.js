@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import FormValidation from '../utils/FormValidation'
 import axios from 'axios'
-
+import { FormContainer, FormButton, FormLabel, FormTitle } from './styled/Form'
 export default class LoginForm extends Component {
   constructor() {
     super()
@@ -66,36 +66,39 @@ export default class LoginForm extends Component {
 
     const { serverResponse } = this.state
     return (
-      <form name="login" onSubmit={this.handleFormSubmit}>
-        <div>
-          <label htmlFor="email">
-            Email <span className="required-field">*</span>
-          </label>
-          <input
-            type="text"
-            name="email"
-            id="email"
-            onChange={this.handleInputChange}
-          />
-          <span className="error">{validation.email.message}</span>
-        </div>
-        <div className="field">
-          <label htmlFor="password">
-            password <span className="required-field">*</span>
-          </label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            onChange={this.handleInputChange}
-          />
-          <span className="error">{validation.password.message}</span>
-        </div>
-        <button type="submit" className="special">
-          LoginForm
-        </button>
-        <span>{serverResponse}</span>
-      </form>
+      <FormContainer>
+        <FormTitle>Login</FormTitle>
+        <form name="login" onSubmit={this.handleFormSubmit}>
+          <div>
+            <FormLabel htmlFor="email">
+              Email <span className="required-field">*</span>
+            </FormLabel>
+            <input
+              type="text"
+              name="email"
+              id="email"
+              onChange={this.handleInputChange}
+            />
+            <span className="error">{validation.email.message}</span>
+          </div>
+          <div className="field">
+            <FormLabel htmlFor="password">
+              password <span className="required-field">*</span>
+            </FormLabel>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              onChange={this.handleInputChange}
+            />
+            <span className="error">{validation.password.message}</span>
+          </div>
+          <FormButton type="submit" className="special">
+            <FormLabel>Submit</FormLabel>
+          </FormButton>
+          <span>{serverResponse}</span>
+        </form>
+      </FormContainer>
     )
   }
 }
