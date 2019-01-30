@@ -109,7 +109,7 @@ export default class LoginForm extends Component {
             </ErrorLabel>
           </div>
           <FormButton type="submit" onClick={this.handleFormSubmit}>
-            <FormLabel>SUBMIT</FormLabel>
+            <FormLabel>CONNECT</FormLabel>
           </FormButton>
           <span>{serverResponse}</span>
         </Form>
