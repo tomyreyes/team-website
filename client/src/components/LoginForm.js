@@ -2,9 +2,11 @@ import React, { Component } from 'react'
 import FormValidation from '../utils/FormValidation'
 import axios from 'axios'
 import {
+  Form,
   FormContainer,
   FormButton,
   FormLabel,
+  FormInput,
   FormTitle,
   ErrorLabel
 } from './styled/Form'
@@ -35,6 +37,10 @@ export default class LoginForm extends Component {
     }
 
     this.submitted = false
+  }
+
+  componentDidMount() {
+    this.emailInput.focus()
   }
 
   handleInputChange = event => {
@@ -74,13 +80,16 @@ export default class LoginForm extends Component {
     return (
       <FormContainer>
         <FormTitle>AUTHENTICATION REQUIRED</FormTitle>
-        <form name="login" onSubmit={this.handleFormSubmit}>
+        <Form name="login" onSubmit={this.handleFormSubmit}>
           <div>
-            <FormLabel htmlFor="email">EMAIL</FormLabel>
-            <input
+            <FormLabel htmlFor="email">EMAIL:</FormLabel>
+            <FormInput
               type="text"
               name="email"
               id="email"
+              ref={input => {
+                this.emailInput = input
+              }}
               onChange={this.handleInputChange}
             />
             <ErrorLabel className="error">
@@ -88,8 +97,8 @@ export default class LoginForm extends Component {
             </ErrorLabel>
           </div>
           <div className="field">
-            <FormLabel htmlFor="password">PASSCODE</FormLabel>
-            <input
+            <FormLabel htmlFor="password">PASSCODE:</FormLabel>
+            <FormInput
               type="password"
               name="password"
               id="password"
@@ -103,7 +112,7 @@ export default class LoginForm extends Component {
             <FormLabel>SUBMIT</FormLabel>
           </FormButton>
           <span>{serverResponse}</span>
-        </form>
+        </Form>
       </FormContainer>
     )
   }

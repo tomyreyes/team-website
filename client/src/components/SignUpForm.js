@@ -60,6 +60,9 @@ export default class SignUpForm extends Component {
     this.submitted = false
   }
 
+  componentDidMount() {
+    this.emailInput.focus()
+  }
   passwordMatch = (confirmation, state) => state.password === confirmation
 
   characterCheck = state => state.length >= 6
@@ -113,6 +116,9 @@ export default class SignUpForm extends Component {
             type="text"
             name="email"
             id="email"
+            ref={input => {
+              this.emailInput = input
+            }}
             onChange={this.handleInputChange}
           />
           <span className="error">{validation.email.message}</span>
