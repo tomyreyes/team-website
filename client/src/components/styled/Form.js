@@ -18,6 +18,10 @@ export const FormContainer = styled.section`
   box-shadow: 0px 5px 38px 4px #52d95b;
   width: 45%;
   height: 45%;
+  @media screen and (max-width: 768px) {
+    width: 73%;
+    height: 50%;
+  }
 `
 export const FormLabel = styled.label`
   @import url('https://fonts.googleapis.com/css?family=Source+Code+Pro');
@@ -31,6 +35,7 @@ export const FormButton = styled.button`
   border-radius: 3px;
   border: 1px #000;
   cursor: pointer;
+  margin-bottom: 1rem;
   &:hover {
     background-color: #358c3b;
   }
@@ -40,14 +45,14 @@ export const FormButton = styled.button`
 `
 
 export const Form = styled.form`
-  /* margin-left: 0.4rem; */
   & ${FormButton} {
     text-align: center;
   }
 `
 
 export const ErrorLabel = styled.div`
-  font-size: 1.2rm;
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
   color: red;
 `
 
@@ -57,7 +62,7 @@ export const FormInput = styled.input`
   border: none;
   font-size: 1.4em;
   width: 15rem;
-  margin-bottom: 25px;
+  margin-bottom: 1rem;
   font-family: 'Source Code Pro', monospace;
   &:focus {
     border: none;
