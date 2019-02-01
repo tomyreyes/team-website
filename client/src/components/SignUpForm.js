@@ -1,5 +1,14 @@
 import React, { Component } from 'react'
 import FormValidation from '../utils/FormValidation'
+import {
+  Form,
+  FormContainer,
+  FormButton,
+  FormLabel,
+  FormInput,
+  FormTitle,
+  ErrorLabel
+} from './styled/Form'
 
 export default class SignUpForm extends Component {
   constructor() {
@@ -94,65 +103,66 @@ export default class SignUpForm extends Component {
 
     const { messageSuccess } = this.state
     return (
-      <form name="sign-up" onSubmit={this.handleFormSubmit}>
-        <div className="field half first">
-          <label htmlFor="name">
-            Name <span className="required-field">*</span>
-          </label>
+      <FormContainer>
+        <FormTitle>REGISTRATION REQUIRED</FormTitle>
+        <Form name="sign-up" onSubmit={this.handleFormSubmit}>
+          <div>
+            <FormLabel htmlFor="name">
+              Name <span className="required-field">*</span>
+            </FormLabel>
 
-          <input
-            type="text"
-            name="name"
-            id="name"
-            onChange={this.handleInputChange}
-          />
-          <span className="error">{validation.name.message}</span>
-        </div>
-        <div className="field half">
-          <label htmlFor="email">
-            Email <span className="required-field">*</span>
-          </label>
-          <input
-            type="text"
-            name="email"
-            id="email"
-            ref={input => {
-              this.emailInput = input
-            }}
-            onChange={this.handleInputChange}
-          />
-          <span className="error">{validation.email.message}</span>
-        </div>
-        <div className="field">
-          <label htmlFor="password">
-            Password<span className="required-field">*</span>
-          </label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            onChange={this.handleInputChange}
-          />
-          <span className="error">{validation.password.message}</span>
-        </div>
-        <div className="field">
-          <label htmlFor="password">
-            Password Confirmation<span className="required-field">*</span>
-          </label>
-          <input
-            type="password"
-            name="passwordConfirmation"
-            id="passwordConfirmation"
-            onChange={this.handleInputChange}
-          />
-          <span className="error">
-            {validation.passwordConfirmation.message}
-          </span>
-        </div>
-        <button type="submit" className="special">
-          Sign Up
-        </button>
-      </form>
+            <FormInput
+              type="text"
+              name="name"
+              id="name"
+              onChange={this.handleInputChange}
+            />
+            <ErrorLabel>{validation.name.message}</ErrorLabel>
+          </div>
+          <div>
+            <FormLabel htmlFor="email">
+              Email <span className="required-field">*</span>
+            </FormLabel>
+            <FormInput
+              type="text"
+              name="email"
+              id="email"
+              ref={input => {
+                this.emailInput = input
+              }}
+              onChange={this.handleInputChange}
+            />
+            <ErrorLabel>{validation.email.message}</ErrorLabel>
+          </div>
+          <div>
+            <FormLabel htmlFor="password">
+              Password<span className="required-field">*</span>
+            </FormLabel>
+            <FormInput
+              type="password"
+              name="password"
+              id="password"
+              onChange={this.handleInputChange}
+            />
+            <ErrorLabel>{validation.password.message}</ErrorLabel>
+          </div>
+          <div>
+            <FormLabel htmlFor="password">
+              Password Confirmation<span className="required-field">*</span>
+            </FormLabel>
+            <FormInput
+              type="password"
+              name="passwordConfirmation"
+              id="passwordConfirmation"
+              onChange={this.handleInputChange}
+            />
+            <ErrorLabel>{validation.passwordConfirmation.message}</ErrorLabel>
+          </div>
+          <FormButton type="submit" className="special">
+            <FormLabel>Sign Up</FormLabel>
+          </FormButton>
+        </Form>
+      </FormContainer>
     )
   }
 }
